@@ -6,26 +6,39 @@ import {
   useState,
 } from "react";
 
-interface DrawerContextProps {
-  isDrawerOpen: boolean;
-  toggleDrawerOpen: () => void;
+interface IDrawerOption {
+  path: string;
+  icon: string;
+  label: string;
 }
 
-interface DrawerProviderProps {
+interface IDrawerContextProps {
+  isDrawerOpen: boolean;
+  toggleDrawerOpen: () => void;
+  drawerOptions: IDrawerOption[];
+  setDrawerOptions: (newDrawerOptions: IDrawerOption[]) => void;
+}
+
+interface IDrawerProviderProps {
   children: ReactNode;
 }
 
-const DrawerContext = createContext<DrawerContextProps>({} as DrawerContextProps);
+const DrawerContext = createContext<IDrawerContextProps>({} as IDrawerContextProps);
 
-export const DrawerProvider = ({ children }: DrawerProviderProps) => {
+export const DrawerProvider = ({ children }: IDrawerProviderProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [drawerOptions, setDrawerOptions] = useState<IDrawerOption[]>([]);
 
   const toggleDrawerOpen = useCallback(() => {
     setIsDrawerOpen((oldDrawerOpen) => !oldDrawerOpen);
   }, []);
 
+  const handleSetDrawerOptions = useCallback((newDrawerOptions: IDrawerOption[]) => {
+    setDrawerOptions(newDrawerOptions);
+  }, []);
+
   return (
-    <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen }}>
+    <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen, drawerOptions, setDrawerOptions: handleSetDrawerOptions }}>
       {children}
     </DrawerContext.Provider>
   );
