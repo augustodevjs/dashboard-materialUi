@@ -23,7 +23,9 @@ interface IDrawerProviderProps {
   children: ReactNode;
 }
 
-const DrawerContext = createContext<IDrawerContextProps>({} as IDrawerContextProps);
+const DrawerContext = createContext<IDrawerContextProps>(
+  {} as IDrawerContextProps
+);
 
 export const DrawerProvider = ({ children }: IDrawerProviderProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -33,12 +35,22 @@ export const DrawerProvider = ({ children }: IDrawerProviderProps) => {
     setIsDrawerOpen((oldDrawerOpen) => !oldDrawerOpen);
   }, []);
 
-  const handleSetDrawerOptions = useCallback((newDrawerOptions: IDrawerOption[]) => {
-    setDrawerOptions(newDrawerOptions);
-  }, []);
+  const handleSetDrawerOptions = useCallback(
+    (newDrawerOptions: IDrawerOption[]) => {
+      setDrawerOptions(newDrawerOptions);
+    },
+    []
+  );
 
   return (
-    <DrawerContext.Provider value={{ isDrawerOpen, toggleDrawerOpen, drawerOptions, setDrawerOptions: handleSetDrawerOptions }}>
+    <DrawerContext.Provider
+      value={{
+        isDrawerOpen,
+        toggleDrawerOpen,
+        drawerOptions,
+        setDrawerOptions: handleSetDrawerOptions,
+      }}
+    >
       {children}
     </DrawerContext.Provider>
   );
