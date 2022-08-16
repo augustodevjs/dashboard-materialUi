@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { useDrawerContext } from "../shared/contexts";
 import { useEffect } from "react";
 import { Dashboard } from "../pages";
+import { useDrawerContext } from "../shared/hooks";
 
 export const AppRoutes = () => {
   const { setDrawerOptions } = useDrawerContext();

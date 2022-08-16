@@ -2,7 +2,6 @@ import {
   createContext,
   ReactNode,
   useCallback,
-  useContext,
   useState,
 } from "react";
 
@@ -23,7 +22,7 @@ interface IDrawerProviderProps {
   children: ReactNode;
 }
 
-const DrawerContext = createContext<IDrawerContextProps>(
+export const DrawerContext = createContext<IDrawerContextProps>(
   {} as IDrawerContextProps
 );
 
@@ -54,9 +53,4 @@ export const DrawerProvider = ({ children }: IDrawerProviderProps) => {
       {children}
     </DrawerContext.Provider>
   );
-};
-
-export const useDrawerContext = () => {
-  const context = useContext(DrawerContext);
-  return context;
 };

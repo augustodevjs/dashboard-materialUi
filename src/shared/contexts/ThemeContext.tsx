@@ -2,7 +2,6 @@ import {
   createContext,
   ReactNode,
   useCallback,
-  useContext,
   useMemo,
   useState,
 } from "react";
@@ -18,7 +17,7 @@ interface IThemeProviderProps {
   children: ReactNode;
 }
 
-const ThemeContext = createContext<IThemeContextProps>({} as IThemeContextProps);
+export const ThemeContext = createContext<IThemeContextProps>({} as IThemeContextProps);
 
 export const AppThemeProvider = ({ children }: IThemeProviderProps) => {
   const [themeName, setThemeName] = useState<"light" | "dark">("light");
@@ -48,9 +47,4 @@ export const AppThemeProvider = ({ children }: IThemeProviderProps) => {
       </ThemeProvider>
     </ThemeContext.Provider>
   );
-};
-
-export const useAppThemeContext = () => {
-  const context = useContext(ThemeContext);
-  return context;
 };
