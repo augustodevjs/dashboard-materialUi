@@ -6,18 +6,18 @@ import { Box } from "@mui/system";
 import { useDrawerContext } from "../../contexts";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
-interface DrawerMenuProps {
+interface IDrawerMenuProps {
   children: ReactNode;
 }
 
-interface ListItemLinkProps {
+interface IListItemLinkProps {
   label: string;
   icon: string;
   to: string;
   onClick?: () => void;
 }
 
-const ListItemLink: React.FC<ListItemLinkProps> = ({ icon, label, to, onClick }) => {
+const ListItemLink: React.FC<IListItemLinkProps> = ({ icon, label, to, onClick }) => {
   const navigate = useNavigate()
 
   const resolvedPath = useResolvedPath(to);
@@ -38,7 +38,7 @@ const ListItemLink: React.FC<ListItemLinkProps> = ({ icon, label, to, onClick })
   )
 }
 
-export const DrawerMenu: React.FC<DrawerMenuProps> = ({ children }) => {
+export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
   const theme = useTheme();
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));

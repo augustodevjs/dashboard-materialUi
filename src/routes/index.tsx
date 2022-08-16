@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useDrawerContext } from "../shared/contexts";
 import { useEffect } from "react";
@@ -12,12 +12,7 @@ export const AppRoutes = () => {
         label: "Página Inicial",
         icon: "home",
         path: "/pagina-inicial"
-      },
-      {
-        label: "Cidades",
-        icon: "star",
-        path: "/cidade"
-      },
+      }
     ])
   }, []);
 
@@ -31,7 +26,6 @@ export const AppRoutes = () => {
           </Button>
         }
       />
-      {/* <Route path="*" element={<Navigate to="/pagina-inicial" />} /> */}
     </Routes>
   );
 };
