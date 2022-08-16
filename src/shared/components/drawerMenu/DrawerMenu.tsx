@@ -1,6 +1,17 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode } from "react";
 
-import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material'
+import {
+  Avatar,
+  Divider,
+  Drawer,
+  Icon,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { Box } from "@mui/system";
 
 import { useDrawerContext } from "../../contexts";
@@ -17,8 +28,13 @@ interface IListItemLinkProps {
   onClick?: () => void;
 }
 
-const ListItemLink: React.FC<IListItemLinkProps> = ({ icon, label, to, onClick }) => {
-  const navigate = useNavigate()
+const ListItemLink: React.FC<IListItemLinkProps> = ({
+  icon,
+  label,
+  to,
+  onClick,
+}) => {
+  const navigate = useNavigate();
 
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: false });
@@ -26,7 +42,7 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({ icon, label, to, onClick }
   const handleClick = () => {
     onClick?.();
     navigate(to);
-  }
+  };
 
   return (
     <ListItemButton selected={!!match} onClick={handleClick}>
@@ -35,20 +51,34 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({ icon, label, to, onClick }
       </ListItemIcon>
       <ListItemText primary={label} />
     </ListItemButton>
-  )
-}
+  );
+};
 
 export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
   const theme = useTheme();
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
-      <Drawer open={isDrawerOpen} onClose={toggleDrawerOpen} variant={smDown ? 'temporary' : 'permanent'}>
-        <Box width={theme.spacing(28)} height="100%" display="flex" flexDirection="column">
-
-          <Box width="100%" height={theme.spacing(20)} display="flex" alignItems="center" justifyContent="center">
+      <Drawer
+        open={isDrawerOpen}
+        onClose={toggleDrawerOpen}
+        variant={smDown ? "temporary" : "permanent"}
+      >
+        <Box
+          width={theme.spacing(28)}
+          height="100%"
+          display="flex"
+          flexDirection="column"
+        >
+          <Box
+            width="100%"
+            height={theme.spacing(20)}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Avatar
               sx={{ height: theme.spacing(12), width: theme.spacing(12) }}
               src="https://avatars.githubusercontent.com/u/90275457?s=400&u=e4a9c35d965dc42c38c6f0b3655a742b8f1f2aa9&v=4"
@@ -59,7 +89,7 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
 
           <Box flex={1}>
             <List component="nav">
-              {drawerOptions.map(drawerOption => (
+              {drawerOptions.map((drawerOption) => (
                 <ListItemLink
                   key={drawerOption.path}
                   icon={drawerOption.icon}
@@ -70,7 +100,6 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
               ))}
             </List>
           </Box>
-
         </Box>
       </Drawer>
 
@@ -78,5 +107,5 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
         {children}
       </Box>
     </>
-  )
-}
+  );
+};
