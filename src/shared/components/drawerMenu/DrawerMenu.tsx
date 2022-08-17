@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
 import {
   Avatar,
@@ -11,22 +11,12 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
-  Box
+  Box,
 } from "@mui/material";
 
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 import { useAppThemeContext, useDrawerContext } from "../../hooks";
-
-interface IDrawerMenuProps {
-  children: ReactNode;
-}
-
-interface IListItemLinkProps {
-  label: string;
-  icon: string;
-  to: string;
-  onClick?: () => void;
-}
+import { IDrawerMenuProps, IListItemLinkProps } from "../../types";
 
 const ListItemLink: React.FC<IListItemLinkProps> = ({
   icon,

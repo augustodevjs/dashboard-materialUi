@@ -1,26 +1,9 @@
+import { createContext, useCallback, useState } from "react";
 import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useState,
-} from "react";
-
-interface IDrawerOption {
-  path: string;
-  icon: string;
-  label: string;
-}
-
-interface IDrawerContextProps {
-  isDrawerOpen: boolean;
-  toggleDrawerOpen: () => void;
-  drawerOptions: IDrawerOption[];
-  setDrawerOptions: (newDrawerOptions: IDrawerOption[]) => void;
-}
-
-interface IDrawerProviderProps {
-  children: ReactNode;
-}
+  IDrawerContextProps,
+  IDrawerOption,
+  IDrawerProviderProps,
+} from "../types";
 
 export const DrawerContext = createContext<IDrawerContextProps>(
   {} as IDrawerContextProps
