@@ -4,7 +4,10 @@ import { LayoutBase } from "../../shared/layouts";
 
 export const Dashboard: React.FC = () => {
   return (
-    <LayoutBase title="Página inicial" toolbars={<DetailsTools />}>
+    <LayoutBase
+      title="Página inicial"
+      toolbars={<DetailsTools showButtonSaveAndClose showButtonSaveLoading />}
+    >
       Testando
     </LayoutBase>
   );

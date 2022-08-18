@@ -6,6 +6,12 @@ export interface IDetailsToolsProps {
   showButtonSave?: boolean;
   showButtonSaveAndClose?: boolean;
 
+  showButtonSaveLoading?: boolean;
+  showButtonBackLoading?: boolean;
+  showButtonNewLoading?: boolean;
+  showButtonDeleteLoading?: boolean;
+  showButtonSaveAndCloseLoading?: boolean;
+
   onClickNew?: () => void;
   onClickBack?: () => void;
   onClickDelete?: () => void;
