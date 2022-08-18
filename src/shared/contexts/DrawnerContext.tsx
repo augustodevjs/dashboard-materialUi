@@ -34,12 +34,9 @@ export const DrawerProvider = ({ children }: IDrawerProviderProps) => {
     setIsDrawerOpen((oldDrawerOpen) => !oldDrawerOpen);
   }, []);
 
-  const handleSetDrawerOptions = useCallback(
-    (newDrawerOptions: IDrawerOption[]) => {
-      setDrawerOptions(newDrawerOptions);
-    },
-    []
-  );
+  const handleSetDrawerOptions = useCallback((newDrawerOptions: IDrawerOption[]) => {
+    setDrawerOptions(newDrawerOptions);
+  }, []);
 
   return (
     <DrawerContext.Provider
