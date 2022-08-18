@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
-import { IToolbar } from "../../types";
+import { IListingTools } from "../../types";
 
-export const Toolbar: React.FC<IToolbar> = ({
+export const ListingTools: React.FC<IListingTools> = ({
   textSearch = "",
   showInputSearch = false,
   onChangeInputSearch,

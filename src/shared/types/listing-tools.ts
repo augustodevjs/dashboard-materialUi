@@ -1,9 +1,8 @@
-export interface IToolbar {
+export interface IListingTools {
   textSearch?: string;
   showInputSearch?: boolean;
-  onChangeInputSearch?: (newText: string) => void;
-
   textButtonNew?: string;
   showButtonNew?: boolean;
   onClickNew?: () => void;
+  onChangeInputSearch?: (newText: string) => void;
 }

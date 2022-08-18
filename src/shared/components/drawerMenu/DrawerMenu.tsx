@@ -29,7 +29,7 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: false });
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     onClick?.();
     navigate(to);
   };
@@ -86,7 +86,7 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
                   key={drawerOption.path}
                   icon={drawerOption.icon}
                   label={drawerOption.label}
-                  to="/pagina-inicial"
+                  to="/home"
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}

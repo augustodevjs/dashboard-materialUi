@@ -1,5 +1,7 @@
 import { createContext, useCallback, useMemo, useState } from "react";
+
 import { Box, ThemeProvider } from "@mui/material";
+
 import { LightTheme, DarkTheme } from "../themes";
 import { IThemeContextProps, IThemeProviderProps } from "../types";
 

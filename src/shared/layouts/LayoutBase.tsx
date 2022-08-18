@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Icon,
   IconButton,
@@ -6,19 +8,20 @@ import {
   useTheme,
   Box,
 } from "@mui/material";
-import React from "react";
+
 import { useDrawerContext } from "../hooks";
 import { ILayoutBaseProps } from "../types";
 
 export const LayoutBase: React.FC<ILayoutBaseProps> = ({
-  children,
   title,
   toolbars,
+  children,
 }) => {
   const theme = useTheme();
+  const { toggleDrawerOpen } = useDrawerContext();
+
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
-  const { toggleDrawerOpen } = useDrawerContext();
 
   return (
     <Box height="100%" display="flex" flexDirection="column" gap={1}>
@@ -29,11 +32,11 @@ export const LayoutBase: React.FC<ILayoutBaseProps> = ({
         alignItems="center"
         gap={1}
       >
-        {smDown ? (
+        {smDown && (
           <IconButton onClick={toggleDrawerOpen}>
             <Icon>menu</Icon>
           </IconButton>
-        ) : null}
+        )}
 
         <Typography
           variant={smDown ? "h4" : mdDown ? "h4" : "h3"}
