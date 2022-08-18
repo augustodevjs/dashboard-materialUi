@@ -11,14 +11,14 @@ export const AppRoutes = () => {
       {
         label: "Página Inicial",
         icon: "home",
-        path: "/pagina-inicial",
+        path: "/home",
       },
     ]);
   }, []);
 
   return (
     <Routes>
-      <Route path="/pagina-inicial" element={<Dashboard />} />
+      <Route path="/home" element={<Dashboard />} />
     </Routes>
   );
 };

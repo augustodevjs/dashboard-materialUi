@@ -1,22 +1,14 @@
-import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material"
-import React from "react"
+import React from "react";
 
-interface IToolbar {
-  textSearch?: string;
-  showInputSearch?: boolean;
-  onChangeInputSearch?: (newText: string) => void;
+import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
+import { IListingTools } from "../../types";
 
-  textButtonNew?: string;
-  showButtonNew?: boolean;
-  onClickNew?: () => void;
-}
-
-export const Toolbar: React.FC<IToolbar> = ({
-  textSearch = '',
+export const ListingTools: React.FC<IListingTools> = ({
+  textSearch = "",
   showInputSearch = false,
   onChangeInputSearch,
   showButtonNew = true,
-  textButtonNew = 'Novo',
+  textButtonNew = "Novo",
   onClickNew,
 }) => {
   const theme = useTheme();
@@ -42,7 +34,6 @@ export const Toolbar: React.FC<IToolbar> = ({
       )}
 
       <Box flex={1} display="flex" justifyContent="end">
-
         {showButtonNew && (
           <Button
             variant="contained"
@@ -56,5 +47,5 @@ export const Toolbar: React.FC<IToolbar> = ({
         )}
       </Box>
     </Box>
-  )
-}
+  );
+};
