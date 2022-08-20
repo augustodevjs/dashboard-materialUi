@@ -6,7 +6,7 @@ export const Dashboard: React.FC = () => {
   return (
     <LayoutBase
       title="Página inicial"
-      toolbars={<DetailsTools showButtonSaveAndClose showButtonSaveLoading />}
+      toolbars={<DetailsTools showButtonSaveAndClose showButtonNew />}
     >
       Testando
     </LayoutBase>

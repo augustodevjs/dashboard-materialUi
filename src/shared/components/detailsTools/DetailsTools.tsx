@@ -6,6 +6,8 @@ import {
   Icon,
   Paper,
   Skeleton,
+  Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { IDetailsToolsProps } from "../../types";
@@ -33,6 +35,9 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
 }) => {
   const theme = useTheme();
 
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box
       component={Paper}
@@ -52,25 +57,44 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
           onClick={onClickSave}
           startIcon={<Icon>save</Icon>}
         >
-          Salvar
+          <Typography
+            variant="button"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          >
+            Salvar
+          </Typography>
         </Button>
       )}
 
       {showButtonSaveLoading && <Skeleton width={110} height={60} />}
 
-      {showButtonSaveAndClose && !showButtonSaveAndCloseLoading && (
-        <Button
-          variant="outlined"
-          disableElevation
-          onClick={onClickSaveAndClose}
-          color="primary"
-          startIcon={<Icon>save</Icon>}
-        >
-          Salvar e voltar
-        </Button>
-      )}
+      {showButtonSaveAndClose &&
+        !showButtonSaveAndCloseLoading &&
+        !smDown &&
+        !mdDown && (
+          <Button
+            variant="outlined"
+            disableElevation
+            onClick={onClickSaveAndClose}
+            color="primary"
+            startIcon={<Icon>save</Icon>}
+          >
+            <Typography
+              variant="button"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+              overflow="hidden"
+            >
+              Salvar e voltar
+            </Typography>
+          </Button>
+        )}
 
-      {showButtonSaveAndCloseLoading && <Skeleton width={180} height={60} />}
+      {showButtonSaveAndCloseLoading && !smDown && !mdDown && (
+        <Skeleton width={180} height={60} />
+      )}
 
       {showButtonDelete && !showButtonDeleteLoading && (
         <Button
@@ -80,13 +104,20 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
           color="primary"
           startIcon={<Icon>delete</Icon>}
         >
-          Apagar
+          <Typography
+            variant="button"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          >
+            Apagar
+          </Typography>
         </Button>
       )}
 
       {showButtonDeleteLoading && <Skeleton width={110} height={60} />}
 
-      {showButtonNew && !showButtonNewLoading && (
+      {showButtonNew && !showButtonNewLoading && !smDown && (
         <Button
           variant="outlined"
           disableElevation
@@ -94,13 +125,26 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
           color="primary"
           startIcon={<Icon>add</Icon>}
         >
-          Novo
+          <Typography
+            variant="button"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          >
+            {textButtonNew}
+          </Typography>
         </Button>
       )}
 
       {showButtonNewLoading && <Skeleton width={110} height={60} />}
 
-      <Divider variant="middle" orientation="vertical" />
+      {showButtonBack &&
+        (showButtonNew ||
+          showButtonDelete ||
+          showButtonSave ||
+          showButtonSaveAndClose) && (
+          <Divider variant="middle" orientation="vertical" />
+        )}
 
       {showButtonBack && !showButtonBackLoading && (
         <Button
@@ -110,11 +154,18 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
           color="primary"
           startIcon={<Icon>arrow_back</Icon>}
         >
-          Voltar
+          <Typography
+            variant="button"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+            overflow="hidden"
+          >
+            Voltar
+          </Typography>
         </Button>
       )}
 
-      {showButtonBackLoading && <Skeleton width={110} height={60} />}
+      {showButtonBackLoading && !smDown && <Skeleton width={110} height={60} />}
     </Box>
   );
 };
