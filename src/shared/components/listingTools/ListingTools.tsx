@@ -1,7 +1,9 @@
 import React from "react";
 
 import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
+
 import { IListingTools } from "../../types";
+import { Environment } from "../../environment";
 
 export const ListingTools: React.FC<IListingTools> = ({
   textSearch = "",
@@ -29,7 +31,7 @@ export const ListingTools: React.FC<IListingTools> = ({
           size="small"
           value={textSearch}
           onChange={(e) => onChangeInputSearch?.(e.target.value)}
-          placeholder="Pesquisar..."
+          placeholder={Environment.INPUT_DE_BUSCA}
         />
       )}
 
