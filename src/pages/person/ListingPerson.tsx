@@ -1,14 +1,30 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import { ListingTools } from "../../shared/components";
+import { useDebounce } from "../../shared/hooks";
 import { LayoutBase } from "../../shared/layouts";
+import { PessoasService } from "../../shared/services/api/pessoas/pessoasServices";
 
 export const ListingPerson: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { debounce } = useDebounce();
 
   const search = useMemo(() => {
     return searchParams.get("search") || "";
   }, [searchParams]);
+
+  useEffect(() => {
+    debounce(() => {
+      PessoasService.getAll(1, search).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+          return;
+        }
+        console.log(result);
+      });
+    });
+  }, [search]);
 
   return (
     <LayoutBase
