@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { Dashboard } from "../pages";
+import { Dashboard, ListingCity } from "../pages";
 import { useDrawerContext } from "../shared/hooks";
 
 export const AppRoutes = () => {
@@ -13,12 +13,18 @@ export const AppRoutes = () => {
         icon: "home",
         path: "/home",
       },
+      {
+        label: "Cidades",
+        icon: "location_city",
+        path: "city",
+      },
     ]);
-  }, []);
+  }, [setDrawerOptions]);
 
   return (
     <Routes>
       <Route path="/home" element={<Dashboard />} />
+      <Route path="/city" element={<ListingCity />} />
     </Routes>
   );
 };

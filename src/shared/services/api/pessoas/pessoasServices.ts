@@ -1,6 +1,7 @@
-import { Environment } from "../../../environment";
-import { IDetalhePessoa, TPessoasTotalCount } from "../../../types";
 import { api } from "../axios-config";
+import { Environment } from "../../../environment";
+
+import { IDetalhePessoa, TPessoasTotalCount } from "../../../types";
 
 const getAll = async (
   page = 1,

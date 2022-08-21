@@ -55,8 +55,8 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
     <>
       <Drawer
         open={isDrawerOpen}
-        onClose={toggleDrawerOpen}
         variant={smDown ? "temporary" : "permanent"}
+        onClose={toggleDrawerOpen}
       >
         <Box
           width={theme.spacing(28)}
@@ -83,10 +83,10 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
             <List component="nav">
               {drawerOptions.map((drawerOption) => (
                 <ListItemLink
+                  to={drawerOption.path}
                   key={drawerOption.path}
                   icon={drawerOption.icon}
                   label={drawerOption.label}
-                  to="/home"
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}
@@ -99,7 +99,7 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
                 <ListItemIcon>
                   <Icon>dark_mode</Icon>
                 </ListItemIcon>
-                <ListItemText primary="Alterar tema" />
+                <ListItemText primary="Alternar tema" />
               </ListItemButton>
             </List>
           </Box>
