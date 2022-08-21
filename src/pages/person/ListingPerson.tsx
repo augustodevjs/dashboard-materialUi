@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { ListingTools } from "../../shared/components";
 import { LayoutBase } from "../../shared/layouts";
 
-export const ListingCity: React.FC = () => {
+export const ListingPerson: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const search = useMemo(() => {

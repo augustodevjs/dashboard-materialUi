@@ -19,7 +19,7 @@ export const AppThemeProvider = ({ children }: IThemeProviderProps) => {
     );
   }, []);
 
-  // Se o retorno for light ou theme ele vai adicionar as configurações de themes.
+  // Se o retorno for light ou dark ele vai adicionar as configurações de them.
   const theme = useMemo(() => {
     if (themeName === "light") return LightTheme;
 

@@ -30,8 +30,8 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({
   const match = useMatch({ path: resolvedPath.pathname, end: false });
 
   const handleClick = (): void => {
-    onClick?.();
     navigate(to);
+    onClick?.();
   };
 
   return (
