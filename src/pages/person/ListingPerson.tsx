@@ -7,8 +7,8 @@ import { LayoutBase } from "../../shared/layouts";
 import { PessoasService } from "../../shared/services/api/pessoas/pessoasServices";
 
 export const ListingPerson: React.FC = () => {
+  const { debounce } = useDebounce(3000, false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { debounce } = useDebounce();
 
   const search = useMemo(() => {
     return searchParams.get("search") || "";
