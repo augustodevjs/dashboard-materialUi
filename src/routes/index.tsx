@@ -19,7 +19,7 @@ export const AppRoutes = () => {
         path: "/person",
       },
     ]);
-  }, [setDrawerOptions]);
+  }, []);
 
   return (
     <Routes>
