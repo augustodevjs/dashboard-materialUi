@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+
 import {
   TableContainer,
   Table,
@@ -9,6 +10,7 @@ import {
   TableFooter,
   Paper,
   LinearProgress,
+  Pagination,
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
@@ -24,18 +26,22 @@ export const ListingPerson: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { debounce } = useDebounce(3000);
+  const { debounce } = useDebounce();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const search = useMemo(() => {
     return searchParams.get("search") || "";
   }, [searchParams]);
 
+  const page = useMemo(() => {
+    return Number(searchParams.get("page") || "1");
+  }, [searchParams]);
+
   useEffect(() => {
     setIsLoading(true);
 
     debounce(() => {
-      PessoasService.getAll(1, search).then((result) => {
+      PessoasService.getAll(page, search).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
@@ -45,7 +51,7 @@ export const ListingPerson: React.FC = () => {
         setTotalCount(result.totalCount);
       });
     });
-  }, [search, debounce]);
+  }, [search, page]);
 
   return (
     <LayoutBase
@@ -56,7 +62,7 @@ export const ListingPerson: React.FC = () => {
           textButtonNew="Nova"
           textSearch={search}
           onChangeInputSearch={(text) =>
-            setSearchParams({ search: text }, { replace: true })
+            setSearchParams({ search: text, page: "1" }, { replace: true })
           }
         />
       }
@@ -93,6 +99,22 @@ export const ListingPerson: React.FC = () => {
               <TableRow>
                 <TableCell colSpan={3}>
                   <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+            {totalCount > 0 && totalCount > Environment.LIMITE_DE_LINHAS && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <Pagination
+                    page={page}
+                    count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS)}
+                    onChange={(_, newPage) =>
+                      setSearchParams(
+                        { search, page: newPage.toString() },
+                        { replace: true }
+                      )
+                    }
+                  />
                 </TableCell>
               </TableRow>
             )}
