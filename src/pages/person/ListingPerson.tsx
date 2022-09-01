@@ -18,7 +18,7 @@ import { useDebounce } from "../../shared/hooks";
 import { LayoutBase } from "../../shared/layouts";
 import { IListagemPessoa } from "../../shared/types";
 import { ListingTools } from "../../shared/components";
-import { PessoasService } from "../../shared/services/api/pessoas/pessoasServices";
+import { getAll } from "../../shared/services/pessoaService";
 import { Environment } from "../../shared/environment";
 
 export const ListingPerson: React.FC = () => {
@@ -41,7 +41,7 @@ export const ListingPerson: React.FC = () => {
     setIsLoading(true);
 
     debounce(() => {
-      PessoasService.getAll(page, search).then((result) => {
+      getAll(page, search).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
@@ -102,6 +102,7 @@ export const ListingPerson: React.FC = () => {
                 </TableCell>
               </TableRow>
             )}
+
             {totalCount > 0 && totalCount > Environment.LIMITE_DE_LINHAS && (
               <TableRow>
                 <TableCell colSpan={3}>
