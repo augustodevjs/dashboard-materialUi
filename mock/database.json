@@ -1,36 +1,6 @@
 {
   "pessoas": [
     {
-      "id": 1,
-      "email": "augusto@gmail.com",
-      "cidadeID": 1,
-      "nomeCompleto": "asdas"
-    },
-    {
-      "id": 2,
-      "email": "carol@gmail.com",
-      "cidadeID": 2,
-      "nomeCompleto": "Carol"
-    },
-    {
-      "id": 3,
-      "email": "bernado@gmail.com",
-      "cidadeID": 3,
-      "nomeCompleto": "Bernado"
-    },
-    {
-      "id": 4,
-      "email": "joao@gmail.com",
-      "cidadeID": 4,
-      "nomeCompleto": "João"
-    },
-    {
-      "id": 5,
-      "email": "carla@gmail.com",
-      "cidadeID": 5,
-      "nomeCompleto": "carla"
-    },
-    {
       "id": 6,
       "email": "carla@gmail.com",
       "cidadeID": 5,
@@ -83,18 +53,6 @@
       "email": "carla@gmail.com",
       "cidadeID": 5,
       "nomeCompleto": "carla"
-    },
-    {
-      "id": 15,
-      "email": "carla@asd.com",
-      "cidadeID": 5,
-      "nomeCompleto": "carasdasdla"
-    },
-    {
-      "id": 16,
-      "email": "carla@gsdasdamail.com",
-      "cidadeID": 5,
-      "nomeCompleto": "asda"
     },
     {
       "id": 17,

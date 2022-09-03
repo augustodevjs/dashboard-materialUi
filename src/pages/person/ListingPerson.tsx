@@ -21,7 +21,7 @@ import { LayoutBase } from "../../shared/layouts";
 import { IListagemPessoa } from "../../shared/types";
 import { Environment } from "../../shared/environment";
 import { ListingTools } from "../../shared/components";
-import { deleteById, getAll } from "../../shared/services/pessoaService";
+import { deleteById, getAll } from "../../shared/services/personService";
 
 export const ListingPerson: React.FC = () => {
   const { debounce } = useDebounce();
@@ -74,6 +74,7 @@ export const ListingPerson: React.FC = () => {
           showInputSearch
           textButtonNew="Nova"
           textSearch={search}
+          onClickNew={() => navigate("/pessoas/detalhe/nova")}
           onChangeInputSearch={(text) =>
             setSearchParams({ search: text, page: "1" }, { replace: true })
           }

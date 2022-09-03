@@ -1,1 +1,1 @@
-export * from "./pessoaService";
+export * from "./personService";
