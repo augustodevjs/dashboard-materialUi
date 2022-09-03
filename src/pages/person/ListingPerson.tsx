@@ -12,6 +12,7 @@ import {
   LinearProgress,
   Pagination,
 } from "@mui/material";
+
 import { useSearchParams } from "react-router-dom";
 
 import { useDebounce } from "../../shared/hooks";
@@ -22,12 +23,12 @@ import { getAll } from "../../shared/services/pessoaService";
 import { Environment } from "../../shared/environment";
 
 export const ListingPerson: React.FC = () => {
+  const { debounce } = useDebounce();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [rows, setRows] = useState<IListagemPessoa[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
-  const { debounce } = useDebounce();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const search = useMemo(() => {
     return searchParams.get("search") || "";
@@ -38,8 +39,6 @@ export const ListingPerson: React.FC = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    setIsLoading(true);
-
     debounce(() => {
       getAll(page, search).then((result) => {
         setIsLoading(false);
