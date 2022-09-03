@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import {
   TableContainer,
@@ -11,16 +12,16 @@ import {
   Paper,
   LinearProgress,
   Pagination,
+  IconButton,
+  Icon,
 } from "@mui/material";
-
-import { useSearchParams } from "react-router-dom";
 
 import { useDebounce } from "../../shared/hooks";
 import { LayoutBase } from "../../shared/layouts";
 import { IListagemPessoa } from "../../shared/types";
-import { ListingTools } from "../../shared/components";
-import { getAll } from "../../shared/services/pessoaService";
 import { Environment } from "../../shared/environment";
+import { ListingTools } from "../../shared/components";
+import { deleteById, getAll } from "../../shared/services/pessoaService";
 
 export const ListingPerson: React.FC = () => {
   const { debounce } = useDebounce();
@@ -29,6 +30,7 @@ export const ListingPerson: React.FC = () => {
   const [rows, setRows] = useState<IListagemPessoa[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const search = useMemo(() => {
     return searchParams.get("search") || "";
@@ -51,6 +53,18 @@ export const ListingPerson: React.FC = () => {
       });
     });
   }, [search, page]);
+
+  const handleDelete = (id: number) => {
+    deleteById(id).then((result) => {
+      if (result instanceof Error) {
+        alert(result.message);
+      }
+
+      const filteredRows = rows.filter((row) => row.id !== id);
+      setRows(filteredRows);
+      alert("Registro apagado com sucesso!");
+    });
+  };
 
   return (
     <LayoutBase
@@ -82,7 +96,17 @@ export const ListingPerson: React.FC = () => {
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.id}>
-                <TableCell>Ações</TableCell>
+                <TableCell>
+                  <IconButton size="small" onClick={() => handleDelete(row.id)}>
+                    <Icon>delete</Icon>
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}
+                  >
+                    <Icon>edit</Icon>
+                  </IconButton>
+                </TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
               </TableRow>
