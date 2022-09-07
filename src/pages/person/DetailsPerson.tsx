@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { LinearProgress } from "@mui/material";
-
 import { DetailsTools } from "../../shared/components";
 import { LayoutBase } from "../../shared/layouts";
 import { deleteById, getById } from "../../shared/services";
 
+import { useForm, FormProvider } from "react-hook-form";
+import { PersonForm } from "./person-form/person-form";
+
+interface IFormData {
+  email: string;
+  cityId: string;
+  fullName: string;
+}
+
 export const DetailsPerson: React.FC = () => {
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const { id = "nova" } = useParams<"id">();
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState("");
+  const form = useForm<IFormData>();
+
+  const onSubmit = (data: IFormData) => console.log(data);
 
   useEffect(() => {
     if (id !== "nova") {
@@ -69,9 +80,9 @@ export const DetailsPerson: React.FC = () => {
         />
       }
     >
-      {isLoading && <LinearProgress variant="indeterminate" />}
-
-      <p>Detalhes de Pessoa</p>
+      <FormProvider {...form}>
+        <PersonForm onSubmit={onSubmit} />
+      </FormProvider>
     </LayoutBase>
   );
 };
