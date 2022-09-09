@@ -5,3 +5,4 @@ export * from "./drawer-menu";
 export * from "./listing-tools";
 export * from "./details-tools";
 export * from "./pessoa-service";
+export * from "./details-person";

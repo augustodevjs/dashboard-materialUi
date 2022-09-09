@@ -1,11 +1,6 @@
 import { TextField } from "@mui/material";
+import { IFormData } from "../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
-
-interface IFormData {
-  email: string;
-  cityId: string;
-  fullName: string;
-}
 
 type Props = {
   onSubmit: SubmitHandler<IFormData>;
@@ -15,29 +10,30 @@ export const PersonForm: React.FC<Props> = ({ onSubmit }) => {
   const { control, handleSubmit } = useFormContext<IFormData>();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="nomeCompleto"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <TextField {...field} placeholder="Nome completo" />
+        )}
+      />
+
       <Controller
         name="email"
         control={control}
         defaultValue=""
-        render={({ field }) => <TextField {...field} label="Email" />}
+        render={({ field }) => <TextField {...field} placeholder="Email" />}
       />
 
       <Controller
-        name="cityId"
+        name="cidadeId"
         control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} label="Id da Cidade" />}
+        render={({ field }) => (
+          <TextField {...field} placeholder="Id da Cidade" />
+        )}
       />
-
-      <Controller
-        name="fullName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} label="Nome completo" />}
-      />
-
-      <input type="submit" />
     </form>
   );
 };

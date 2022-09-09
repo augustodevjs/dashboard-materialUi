@@ -30,8 +30,6 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
   onClickNew,
   onClickBack,
   onClickDelete,
-  onClickSave,
-  onClickSaveAndClose,
 }) => {
   const theme = useTheme();
 
@@ -51,10 +49,11 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
     >
       {showButtonSave && !showButtonSaveLoading && (
         <Button
+          form="hook-form"
+          type="submit"
           variant="contained"
           disableElevation
           color="primary"
-          onClick={onClickSave}
           startIcon={<Icon>save</Icon>}
         >
           <Typography
@@ -75,9 +74,10 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
         !smDown &&
         !mdDown && (
           <Button
+            form="hook-form"
+            type="submit"
             variant="outlined"
             disableElevation
-            onClick={onClickSaveAndClose}
             color="primary"
             startIcon={<Icon>save</Icon>}
           >

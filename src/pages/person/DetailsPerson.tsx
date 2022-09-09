@@ -1,34 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
-import { DetailsTools } from "../../shared/components";
-import { LayoutBase } from "../../shared/layouts";
-import { deleteById, getById } from "../../shared/services";
-
 import { useForm, FormProvider } from "react-hook-form";
-import { PersonForm } from "./person-form/person-form";
 
-interface IFormData {
-  email: string;
-  cityId: string;
-  fullName: string;
-}
+import { PersonForm } from "../../pages";
+import { IFormData } from "../../shared/types";
+import { LayoutBase } from "../../shared/layouts";
+import { DetailsTools } from "../../shared/components";
+import { create, deleteById, getById, updateById } from "../../shared/services";
 
 export const DetailsPerson: React.FC = () => {
+  const navigate = useNavigate();
+  const form = useForm<IFormData>();
+  const { id = "nova" } = useParams<"id">();
+
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { id = "nova" } = useParams<"id">();
-  const navigate = useNavigate();
-
-  const form = useForm<IFormData>();
-
-  const onSubmit = (data: IFormData) => console.log(data);
-
   useEffect(() => {
     if (id !== "nova") {
-      setIsLoading(true);
-
       getById(Number(id)).then((result) => {
         setIsLoading(false);
 
@@ -39,14 +28,10 @@ export const DetailsPerson: React.FC = () => {
         }
 
         setName(result.nomeCompleto);
-        console.log(result);
+        form.reset(result);
       });
     }
   }, []);
-
-  const handleSave = () => {
-    console.log("Save");
-  };
 
   const handleDelete = (id: number) => {
     deleteById(id).then((result) => {
@@ -59,6 +44,29 @@ export const DetailsPerson: React.FC = () => {
     });
   };
 
+  const onSubmit = (data: IFormData) => {
+    if (id === "nova") {
+      create(data).then((result) => {
+        setIsLoading(false);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        }
+
+        navigate(`/pessoas/detalhe/${result}`);
+        setName(data.nomeCompleto);
+      });
+    } else {
+      updateById(Number(id), { id: Number(id), ...data }).then((result) => {
+        setIsLoading(false);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        }
+      });
+    }
+  };
+
   return (
     <LayoutBase
       title={id === "nova" ? "Nova Pessoa" : name}
@@ -68,9 +76,7 @@ export const DetailsPerson: React.FC = () => {
           showButtonSaveAndClose
           showButtonNew={id !== "nova"}
           showButtonDelete={id !== "nova"}
-          onClickSave={handleSave}
           onClickDelete={() => handleDelete(Number(id))}
-          onClickSaveAndClose={handleSave}
           onClickNew={() => {
             navigate("/pessoas/detalhe/nova");
           }}
