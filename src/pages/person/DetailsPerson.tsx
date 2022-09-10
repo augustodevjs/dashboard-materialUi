@@ -18,20 +18,53 @@ export const DetailsPerson: React.FC = () => {
 
   useEffect(() => {
     if (id !== "nova") {
+      setIsLoading(true);
+
       getById(Number(id)).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
           alert(result.message);
           navigate("/person");
-          return;
+        } else {
+          setName(result.nomeCompleto);
+          form.reset(result);
         }
-
-        setName(result.nomeCompleto);
-        form.reset(result);
+      });
+    } else {
+      form.reset({
+        email: "",
+        nomeCompleto: "",
+        cidadeId: "",
       });
     }
-  }, []);
+  }, [id]);
+
+  const onSubmit = (data: IFormData) => {
+    setIsLoading(true);
+
+    if (id === "nova") {
+      create(data).then((result) => {
+        setIsLoading(false);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        }
+
+        navigate(`/pessoas/detalhe/${result}`);
+      });
+    } else {
+      updateById(Number(id), { id: Number(id), ...data }).then((result) => {
+        setIsLoading(false);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        }
+
+        setName(data.nomeCompleto);
+      });
+    }
+  };
 
   const handleDelete = (id: number) => {
     deleteById(id).then((result) => {
@@ -44,29 +77,6 @@ export const DetailsPerson: React.FC = () => {
     });
   };
 
-  const onSubmit = (data: IFormData) => {
-    if (id === "nova") {
-      create(data).then((result) => {
-        setIsLoading(false);
-
-        if (result instanceof Error) {
-          alert(result.message);
-        }
-
-        navigate(`/pessoas/detalhe/${result}`);
-        setName(data.nomeCompleto);
-      });
-    } else {
-      updateById(Number(id), { id: Number(id), ...data }).then((result) => {
-        setIsLoading(false);
-
-        if (result instanceof Error) {
-          alert(result.message);
-        }
-      });
-    }
-  };
-
   return (
     <LayoutBase
       title={id === "nova" ? "Nova Pessoa" : name}
@@ -76,18 +86,19 @@ export const DetailsPerson: React.FC = () => {
           showButtonSaveAndClose
           showButtonNew={id !== "nova"}
           showButtonDelete={id !== "nova"}
+          onClickSaveAndClose={() => navigate("/person")}
           onClickDelete={() => handleDelete(Number(id))}
           onClickNew={() => {
             navigate("/pessoas/detalhe/nova");
           }}
           onClickBack={() => {
-            navigate("/pessoas");
+            navigate("/person");
           }}
         />
       }
     >
       <FormProvider {...form}>
-        <PersonForm onSubmit={onSubmit} />
+        <PersonForm onSubmit={onSubmit} isLoading={isLoading} />
       </FormProvider>
     </LayoutBase>
   );

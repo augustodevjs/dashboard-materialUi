@@ -1,39 +1,98 @@
-import { TextField } from "@mui/material";
+import {
+  TextField,
+  Box,
+  Paper,
+  Grid,
+  Typography,
+  LinearProgress,
+} from "@mui/material";
+
 import { IFormData } from "../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 
 type Props = {
   onSubmit: SubmitHandler<IFormData>;
+  isLoading: boolean;
 };
 
-export const PersonForm: React.FC<Props> = ({ onSubmit }) => {
+export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
   const { control, handleSubmit } = useFormContext<IFormData>();
 
   return (
     <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="nomeCompleto"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <TextField {...field} placeholder="Nome completo" />
-        )}
-      />
+      <Box
+        margin={1}
+        display="flex"
+        flexDirection="column"
+        component={Paper}
+        variant="outlined"
+      >
+        <Grid container direction="column" padding={2} spacing={2}>
+          {isLoading && (
+            <Grid item>
+              <LinearProgress variant="indeterminate" />
+            </Grid>
+          )}
 
-      <Controller
-        name="email"
-        control={control}
-        defaultValue=""
-        render={({ field }) => <TextField {...field} placeholder="Email" />}
-      />
+          <Grid item>
+            <Typography variant="h6">Geral</Typography>
+          </Grid>
 
-      <Controller
-        name="cidadeId"
-        control={control}
-        render={({ field }) => (
-          <TextField {...field} placeholder="Id da Cidade" />
-        )}
-      />
+          <Grid container item direction="row" spacing={2}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+              <Controller
+                name="nomeCompleto"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Nome completo"
+                    disabled={isLoading}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container item direction="row" spacing={2}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Email"
+                    disabled={isLoading}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container item direction="row" spacing={2}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+              <Controller
+                name="cidadeId"
+                defaultValue=""
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Cidade"
+                    disabled={isLoading}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
     </form>
   );
 };

@@ -37,6 +37,5 @@ export interface IDetailsToolsProps {
   onClickNew?: () => void;
   onClickBack?: () => void;
   onClickDelete?: () => void;
-  onClickSave?: () => void;
   onClickSaveAndClose?: () => void;
 }

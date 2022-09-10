@@ -1,5 +1,5 @@
 export interface IFormData {
   email: string;
-  cidadeId: number;
+  cidadeId: string;
   nomeCompleto: string;
 }
