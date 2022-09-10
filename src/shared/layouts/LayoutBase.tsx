@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { useDrawerContext } from "../hooks";
-import { ILayoutBaseProps } from "../types";
+import { ILayoutBaseProps } from "../types/layout-base";
 
 export const LayoutBase: React.FC<ILayoutBaseProps> = ({
   title,

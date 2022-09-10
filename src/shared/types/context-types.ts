@@ -16,3 +16,12 @@ export interface IDrawerContextProps {
 export interface IDrawerProviderProps {
   children: ReactNode;
 }
+
+export interface IThemeContextProps {
+  themeName: "light" | "dark";
+  toggleTheme: () => void;
+}
+
+export interface IThemeProviderProps {
+  children: ReactNode;
+}
