@@ -31,6 +31,7 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
   onClickBack,
   onClickDelete,
   onClickSaveAndClose,
+  onClickSave,
 }) => {
   const theme = useTheme();
 
@@ -56,6 +57,7 @@ export const DetailsTools: React.FC<IDetailsToolsProps> = ({
           disableElevation
           color="primary"
           startIcon={<Icon>save</Icon>}
+          onClick={onClickSave}
         >
           <Typography
             variant="button"

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 
 import { PersonForm } from "../../pages";
+import { useTForm } from "../../shared/hooks";
 import { IFormData } from "../../shared/types";
 import { LayoutBase } from "../../shared/layouts";
 import { DetailsTools } from "../../shared/components";
@@ -12,6 +13,7 @@ export const DetailsPerson: React.FC = () => {
   const navigate = useNavigate();
   const form = useForm<IFormData>();
   const { id = "nova" } = useParams<"id">();
+  const { save, saveAndClose, isSaveAndClose } = useTForm();
 
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,9 +51,13 @@ export const DetailsPerson: React.FC = () => {
 
         if (result instanceof Error) {
           alert(result.message);
+        } else {
+          if (isSaveAndClose()) {
+            navigate("/person");
+          } else {
+            navigate(`/pessoas/detalhe/${result}`);
+          }
         }
-
-        navigate(`/pessoas/detalhe/${result}`);
       });
     } else {
       updateById(Number(id), { id: Number(id), ...data }).then((result) => {
@@ -59,9 +65,12 @@ export const DetailsPerson: React.FC = () => {
 
         if (result instanceof Error) {
           alert(result.message);
+        } else {
+          if (isSaveAndClose()) {
+            navigate("/person");
+            setName(data.nomeCompleto);
+          }
         }
-
-        setName(data.nomeCompleto);
       });
     }
   };
@@ -86,7 +95,8 @@ export const DetailsPerson: React.FC = () => {
           showButtonSaveAndClose
           showButtonNew={id !== "nova"}
           showButtonDelete={id !== "nova"}
-          onClickSaveAndClose={() => navigate("/person")}
+          onClickSave={save}
+          onClickSaveAndClose={saveAndClose}
           onClickDelete={() => handleDelete(Number(id))}
           onClickNew={() => {
             navigate("/pessoas/detalhe/nova");
