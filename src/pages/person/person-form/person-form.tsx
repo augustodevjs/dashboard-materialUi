@@ -9,6 +9,7 @@ import {
 
 import { IFormData } from "../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
+import { TextFieldInput } from "../../../shared/components";
 
 type Props = {
   onSubmit: SubmitHandler<IFormData>;
@@ -16,7 +17,7 @@ type Props = {
 };
 
 export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
-  const { control, handleSubmit } = useFormContext<IFormData>();
+  const { control, handleSubmit, formState } = useFormContext<IFormData>();
 
   return (
     <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
@@ -45,7 +46,7 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField
+                  <TextFieldInput
                     {...field}
                     fullWidth
                     label="Nome completo"

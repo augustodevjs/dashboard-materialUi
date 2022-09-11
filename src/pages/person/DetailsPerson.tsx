@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { PersonForm } from "../../pages";
 import { useTForm } from "../../shared/hooks";
 import { IFormData } from "../../shared/types";
 import { LayoutBase } from "../../shared/layouts";
 import { DetailsTools } from "../../shared/components";
+import { personFormValidationSchema } from "../../shared/validators";
 import { create, deleteById, getById, updateById } from "../../shared/services";
 
 export const DetailsPerson: React.FC = () => {
   const navigate = useNavigate();
-  const form = useForm<IFormData>();
-  const { id = "nova" } = useParams<"id">();
-  const { save, saveAndClose, isSaveAndClose } = useTForm();
+  const form = useForm<IFormData>({
+    resolver: yupResolver(personFormValidationSchema),
+    mode: "onChange",
+  });
 
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { id = "nova" } = useParams<"id">();
+  const { save, saveAndClose, isSaveAndClose } = useTForm();
 
   useEffect(() => {
     if (id !== "nova") {
