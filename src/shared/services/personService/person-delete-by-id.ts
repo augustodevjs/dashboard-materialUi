@@ -1,6 +1,6 @@
 import { api } from "../../api/axios-config";
 
-export const deleteById = async (id: number): Promise<void | Error> => {
+export const personDeleteById = async (id: number): Promise<void | Error> => {
   try {
     await api.delete(`/pessoas/${id}`);
   } catch (error) {

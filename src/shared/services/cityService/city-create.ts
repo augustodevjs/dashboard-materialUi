@@ -1,11 +1,11 @@
 import { api } from "../../api/axios-config";
-import { IDetalhePessoa } from "../../types";
+import { IDetalheCidades } from "../../types";
 
-export const create = async (
-  dados: Omit<IDetalhePessoa, "id">
+export const personCreate = async (
+  dados: Omit<IDetalheCidades, "id">
 ): Promise<number | Error> => {
   try {
-    const { data } = await api.post<IDetalhePessoa>("/pessoas", dados);
+    const { data } = await api.post<IDetalheCidades>("/cidades", dados);
 
     if (data) {
       return data.id;

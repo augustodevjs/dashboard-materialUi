@@ -1,7 +1,9 @@
 import { api } from "../../api/axios-config";
 import { IDetalhePessoa } from "../../types";
 
-export const getById = async (id: number): Promise<IDetalhePessoa | Error> => {
+export const personGetById = async (
+  id: number
+): Promise<IDetalhePessoa | Error> => {
   try {
     const { data } = await api.get(`/pessoas/${id}`);
 

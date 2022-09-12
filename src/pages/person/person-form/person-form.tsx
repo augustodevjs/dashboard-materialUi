@@ -17,7 +17,11 @@ type Props = {
 };
 
 export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
-  const { control, handleSubmit, formState } = useFormContext<IFormData>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useFormContext<IFormData>();
 
   return (
     <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>

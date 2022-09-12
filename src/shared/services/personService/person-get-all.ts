@@ -2,7 +2,7 @@ import { api } from "../../api/axios-config";
 import { Environment } from "../../environment";
 import { TPessoasTotalCount } from "../../types";
 
-export const getAll = async (
+export const personGetAll = async (
   page = 1,
   filter = ""
 ): Promise<TPessoasTotalCount | Error> => {

@@ -1,7 +1,7 @@
 import { api } from "../../api/axios-config";
 import { IDetalhePessoa } from "../../types";
 
-export const updateById = async (
+export const personUpdateById = async (
   id: number,
   dados: IDetalhePessoa
 ): Promise<void | Error> => {

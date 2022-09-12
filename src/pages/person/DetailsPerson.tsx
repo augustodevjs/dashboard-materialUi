@@ -9,7 +9,12 @@ import { IFormData } from "../../shared/types";
 import { LayoutBase } from "../../shared/layouts";
 import { DetailsTools } from "../../shared/components";
 import { personFormValidationSchema } from "../../shared/validators";
-import { create, deleteById, getById, updateById } from "../../shared/services";
+import {
+  personCreate,
+  personDeleteById,
+  personGetById,
+  personUpdateById,
+} from "../../shared/services";
 
 export const DetailsPerson: React.FC = () => {
   const navigate = useNavigate();
@@ -28,7 +33,7 @@ export const DetailsPerson: React.FC = () => {
     if (id !== "nova") {
       setIsLoading(true);
 
-      getById(Number(id)).then((result) => {
+      personGetById(Number(id)).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -52,7 +57,7 @@ export const DetailsPerson: React.FC = () => {
     setIsLoading(true);
 
     if (id === "nova") {
-      create(data).then((result) => {
+      personCreate(data).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -66,23 +71,25 @@ export const DetailsPerson: React.FC = () => {
         }
       });
     } else {
-      updateById(Number(id), { id: Number(id), ...data }).then((result) => {
-        setIsLoading(false);
+      personUpdateById(Number(id), { id: Number(id), ...data }).then(
+        (result) => {
+          setIsLoading(false);
 
-        if (result instanceof Error) {
-          alert(result.message);
-        } else {
-          if (isSaveAndClose()) {
-            navigate("/person");
-            setName(data.nomeCompleto);
+          if (result instanceof Error) {
+            alert(result.message);
+          } else {
+            if (isSaveAndClose()) {
+              navigate("/person");
+              setName(data.nomeCompleto);
+            }
           }
         }
-      });
+      );
     }
   };
 
   const handleDelete = (id: number) => {
-    deleteById(id).then((result) => {
+    personDeleteById(id).then((result) => {
       if (result instanceof Error) {
         alert(result.message);
       }

@@ -21,7 +21,10 @@ import { LayoutBase } from "../../shared/layouts";
 import { IListagemPessoa } from "../../shared/types";
 import { Environment } from "../../shared/environment";
 import { ListingTools } from "../../shared/components";
-import { deleteById, getAll } from "../../shared/services/personService";
+import {
+  personDeleteById,
+  personGetAll,
+} from "../../shared/services/personService";
 
 export const ListingPerson: React.FC = () => {
   const { debounce } = useDebounce();
@@ -42,7 +45,7 @@ export const ListingPerson: React.FC = () => {
 
   useEffect(() => {
     debounce(() => {
-      getAll(page, search).then((result) => {
+      personGetAll(page, search).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
@@ -55,7 +58,7 @@ export const ListingPerson: React.FC = () => {
   }, [search, page]);
 
   const handleDelete = (id: number) => {
-    deleteById(id).then((result) => {
+    personDeleteById(id).then((result) => {
       if (result instanceof Error) {
         alert(result.message);
       }
