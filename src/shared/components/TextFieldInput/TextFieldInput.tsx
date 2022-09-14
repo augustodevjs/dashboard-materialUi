@@ -1,4 +1,5 @@
 import { TextField, TextFieldProps } from "@mui/material";
+import { Container } from "./TextFieldInput.styles";
 
 type Props = Partial<TextFieldProps> & {
   fullWidth?: boolean;
@@ -6,8 +7,8 @@ type Props = Partial<TextFieldProps> & {
 
 export const TextFieldInput = ({ fullWidth = true, ...rest }: Props) => {
   return (
-    <>
+    <Container>
       <TextField {...rest} fullWidth={fullWidth} />
-    </>
+    </Container>
   );
 };

@@ -1,7 +1,7 @@
 import { api } from "../../api/axios-config";
 import { IDetalheCidades } from "../../types";
 
-export const personCreate = async (
+export const cityCreate = async (
   dados: Omit<IDetalheCidades, "id">
 ): Promise<number | Error> => {
   try {

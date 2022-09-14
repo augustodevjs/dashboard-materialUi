@@ -1,18 +1,11 @@
-import {
-  TextField,
-  Box,
-  Paper,
-  Grid,
-  Typography,
-  LinearProgress,
-} from "@mui/material";
+import { Box, Paper, Grid, Typography, LinearProgress } from "@mui/material";
 
-import { IFormData } from "../../../shared/types";
+import { IFormPerson } from "../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 import { TextFieldInput } from "../../../shared/components";
 
 type Props = {
-  onSubmit: SubmitHandler<IFormData>;
+  onSubmit: SubmitHandler<IFormPerson>;
   isLoading: boolean;
 };
 
@@ -21,7 +14,7 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useFormContext<IFormData>();
+  } = useFormContext<IFormPerson>();
 
   return (
     <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +48,10 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                     fullWidth
                     label="Nome completo"
                     disabled={isLoading}
+                    error={Boolean(errors.nomeCompleto)}
+                    helperText={
+                      errors.nomeCompleto && errors.nomeCompleto.message
+                    }
                   />
                 )}
               />
@@ -68,11 +65,13 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField
+                  <TextFieldInput
                     {...field}
                     fullWidth
                     label="Email"
                     disabled={isLoading}
+                    error={Boolean(errors.email)}
+                    helperText={errors.email && errors.email.message}
                   />
                 )}
               />
@@ -86,11 +85,13 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 defaultValue=""
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <TextFieldInput
                     {...field}
                     fullWidth
                     label="Cidade"
                     disabled={isLoading}
+                    error={Boolean(errors.cidadeId)}
+                    helperText={errors.cidadeId && errors.cidadeId.message}
                   />
                 )}
               />

@@ -3,23 +3,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { PersonForm } from "../../pages";
+import { CityForm } from "../../pages";
 import { useTForm } from "../../shared/hooks";
-import { IFormPerson } from "../../shared/types";
+import { IFormCity } from "../../shared/types";
 import { LayoutBase } from "../../shared/layouts";
 import { DetailsTools } from "../../shared/components";
-import { personFormValidationSchema } from "../../shared/validators";
+import { cityFormValidationSchema } from "../../shared/validators";
+
 import {
-  personCreate,
-  personDeleteById,
-  personGetById,
-  personUpdateById,
+  cityCreate,
+  cityDeleteById,
+  cityGetById,
+  cityUpdateById,
 } from "../../shared/services";
 
-export const DetailsPerson: React.FC = () => {
+export const DetailsCity: React.FC = () => {
   const navigate = useNavigate();
-  const form = useForm<IFormPerson>({
-    resolver: yupResolver(personFormValidationSchema),
+  const form = useForm<IFormCity>({
+    resolver: yupResolver(cityFormValidationSchema),
     mode: "onChange",
   });
 
@@ -33,75 +34,71 @@ export const DetailsPerson: React.FC = () => {
     if (id !== "nova") {
       setIsLoading(true);
 
-      personGetById(Number(id)).then((result) => {
+      cityGetById(Number(id)).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
           alert(result.message);
-          navigate("/pessoas");
+          navigate("/cidades");
         } else {
+          setName(result.nome);
           form.reset(result);
-          setName(result.nomeCompleto);
         }
       });
     } else {
       form.reset({
-        email: "",
-        nomeCompleto: "",
-        cidadeId: "",
+        nome: "",
       });
     }
   }, [id]);
 
-  const onSubmit = (data: IFormPerson) => {
+  const onSubmit = (data: IFormCity) => {
     setIsLoading(true);
 
     if (id === "nova") {
-      personCreate(data).then((result) => {
+      cityCreate(data).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
           alert(result.message);
         } else {
           if (isSaveAndClose()) {
-            navigate("/pessoas");
+            navigate("/cidades");
           } else {
-            navigate(`/pessoas/detalhe/${result}`);
+            navigate(`/cidades/detalhe/${result}`);
           }
         }
       });
     } else {
-      personUpdateById(Number(id), { id: Number(id), ...data }).then(
-        (result) => {
-          setIsLoading(false);
+      cityUpdateById(Number(id), { id: Number(id), ...data }).then((result) => {
+        setIsLoading(false);
 
-          if (result instanceof Error) {
-            alert(result.message);
-          } else {
-            if (isSaveAndClose()) {
-              navigate("/pessoas");
-              setName(data.nomeCompleto);
-            }
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          if (isSaveAndClose()) {
+            navigate("/cidades");
+            setName(data.nome);
           }
         }
-      );
+      });
     }
   };
 
   const handleDelete = (id: number) => {
-    personDeleteById(id).then((result) => {
+    cityDeleteById(id).then((result) => {
       if (result instanceof Error) {
         alert(result.message);
       }
 
       alert("Dado apagado com sucesso");
-      navigate("/pessoas");
+      navigate("/cidades");
     });
   };
 
   return (
     <LayoutBase
-      title={id === "nova" ? "Nova Pessoa" : name}
+      title={id === "nova" ? "Nova Cidade" : name}
       toolbars={
         <DetailsTools
           textButtonNew="Nova"
@@ -112,16 +109,16 @@ export const DetailsPerson: React.FC = () => {
           onClickSaveAndClose={saveAndClose}
           onClickDelete={() => handleDelete(Number(id))}
           onClickNew={() => {
-            navigate("/pessoas/detalhe/nova");
+            navigate("/cidades/detalhe/nova");
           }}
           onClickBack={() => {
-            navigate("/pessoas");
+            navigate("/cidades");
           }}
         />
       }
     >
       <FormProvider {...form}>
-        <PersonForm onSubmit={onSubmit} isLoading={isLoading} />
+        <CityForm onSubmit={onSubmit} isLoading={isLoading} />
       </FormProvider>
     </LayoutBase>
   );
