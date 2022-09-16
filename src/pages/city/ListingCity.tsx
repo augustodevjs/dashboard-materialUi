@@ -41,17 +41,19 @@ export const ListingCity: React.FC = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    debounce(() => {
-      cityGetAll(page, search).then((result) => {
-        setIsLoading(false);
-        if (result instanceof Error) {
-          alert(result.message);
-          return;
-        }
-        setRows(result.data);
-        setTotalCount(result.totalCount);
+    setTimeout(() => {
+      debounce(() => {
+        cityGetAll(page, search).then((result) => {
+          setIsLoading(false);
+          if (result instanceof Error) {
+            alert(result.message);
+            return;
+          }
+          setRows(result.data);
+          setTotalCount(result.totalCount);
+        });
       });
-    });
+    }, 300);
   }, [search, page]);
 
   const handleDelete = (id: number) => {

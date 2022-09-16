@@ -8,7 +8,7 @@ export const Dashboard: React.FC = () => {
       title="Página inicial"
       toolbars={<DetailsTools showButtonSaveAndClose showButtonNew />}
     >
-      asdas
+      <p>Hello World!</p>
     </LayoutBase>
   );
 };

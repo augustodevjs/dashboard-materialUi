@@ -33,18 +33,19 @@ export const DetailsCity: React.FC = () => {
   useEffect(() => {
     if (id !== "nova") {
       setIsLoading(true);
+      setTimeout(() => {
+        cityGetById(Number(id)).then((result) => {
+          setIsLoading(false);
 
-      cityGetById(Number(id)).then((result) => {
-        setIsLoading(false);
-
-        if (result instanceof Error) {
-          alert(result.message);
-          navigate("/cidades");
-        } else {
-          setName(result.nome);
-          form.reset(result);
-        }
-      });
+          if (result instanceof Error) {
+            alert(result.message);
+            navigate("/cidades");
+          } else {
+            setName(result.nome);
+            form.reset(result);
+          }
+        });
+      }, 300);
     } else {
       form.reset({
         nome: "",
@@ -98,7 +99,13 @@ export const DetailsCity: React.FC = () => {
 
   return (
     <LayoutBase
-      title={id === "nova" ? "Nova Cidade" : name}
+      title={
+        id !== "nova" && isLoading
+          ? "Carregando..."
+          : id !== "nova" && !isLoading
+          ? name
+          : "Nova Cidade"
+      }
       toolbars={
         <DetailsTools
           textButtonNew="Nova"

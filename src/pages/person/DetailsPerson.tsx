@@ -32,18 +32,19 @@ export const DetailsPerson: React.FC = () => {
   useEffect(() => {
     if (id !== "nova") {
       setIsLoading(true);
+      setTimeout(() => {
+        personGetById(Number(id)).then((result) => {
+          setIsLoading(false);
 
-      personGetById(Number(id)).then((result) => {
-        setIsLoading(false);
-
-        if (result instanceof Error) {
-          alert(result.message);
-          navigate("/pessoas");
-        } else {
-          form.reset(result);
-          setName(result.nomeCompleto);
-        }
-      });
+          if (result instanceof Error) {
+            alert(result.message);
+            navigate("/pessoas");
+          } else {
+            setName(result.nomeCompleto);
+            form.reset(result);
+          }
+        });
+      }, 300);
     } else {
       form.reset({
         email: "",
@@ -101,7 +102,13 @@ export const DetailsPerson: React.FC = () => {
 
   return (
     <LayoutBase
-      title={id === "nova" ? "Nova Pessoa" : name}
+      title={
+        id !== "nova" && isLoading
+          ? "Carregando..."
+          : id !== "nova" && !isLoading
+          ? name
+          : "Nova Pessoa"
+      }
       toolbars={
         <DetailsTools
           textButtonNew="Nova"
