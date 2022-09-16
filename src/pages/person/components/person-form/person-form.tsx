@@ -1,8 +1,9 @@
 import { Box, Paper, Grid, Typography, LinearProgress } from "@mui/material";
 
-import { IFormPerson } from "../../../shared/types";
+import { IFormPerson } from "../../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
-import { TextFieldInput } from "../../../shared/components";
+import { TextFieldInput } from "../../../../shared/components";
+import { AutoCompleteCity } from "../AutoCompleteCity/AutoCompleteCity";
 
 type Props = {
   onSubmit: SubmitHandler<IFormPerson>;
@@ -84,16 +85,7 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 name="cidadeId"
                 defaultValue=""
                 control={control}
-                render={({ field }) => (
-                  <TextFieldInput
-                    {...field}
-                    fullWidth
-                    label="Cidade"
-                    disabled={isLoading}
-                    error={Boolean(errors.cidadeId)}
-                    helperText={errors.cidadeId && errors.cidadeId.message}
-                  />
-                )}
+                render={({ field }) => <AutoCompleteCity />}
               />
             </Grid>
           </Grid>
