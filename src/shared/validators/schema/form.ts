@@ -8,7 +8,7 @@ export const personFormValidationSchema: yup.SchemaOf<IFormPerson> = yup.object(
       .string()
       .email("O e-mail é inválido")
       .required("O campo é obrigatório"),
-    cidadeId: yup.string().required("O campo é obrigatório"),
+    cidadeId: yup.number().required("O campo é obrigatório"),
   }
 );
 

@@ -79,16 +79,17 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
             </Grid>
           </Grid>
 
-          <Grid container item direction="row" spacing={2}>
+          {/* <Grid container item direction="row" spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
               <Controller
                 name="cidadeId"
-                defaultValue=""
                 control={control}
-                render={({ field }) => <AutoCompleteCity />}
+                render={({ field }) => (
+                  <AutoCompleteCity isExternalLoading={isLoading} {...field} />
+                )}
               />
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </form>

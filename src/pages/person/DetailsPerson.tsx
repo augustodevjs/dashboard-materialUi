@@ -46,11 +46,7 @@ export const DetailsPerson: React.FC = () => {
         });
       }, 300);
     } else {
-      form.reset({
-        email: "",
-        nomeCompleto: "",
-        cidadeId: "",
-      });
+      form.reset();
     }
   }, [id]);
 
@@ -69,6 +65,8 @@ export const DetailsPerson: React.FC = () => {
       });
     } else {
       setIsLoading(true);
+
+      console.log(data);
 
       personUpdateById(Number(id), { id: Number(id), ...data }).then(
         (result) => {

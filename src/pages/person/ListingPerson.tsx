@@ -35,8 +35,6 @@ export const ListingPerson: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  console.log(rows);
-
   const search = useMemo(() => {
     return searchParams.get("search") || "";
   }, [searchParams]);

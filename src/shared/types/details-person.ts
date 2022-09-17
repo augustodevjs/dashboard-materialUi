@@ -1,6 +1,6 @@
 export interface IFormPerson {
   email: string;
-  cidadeId: string;
+  cidadeId: number;
   nomeCompleto: string;
 }
 

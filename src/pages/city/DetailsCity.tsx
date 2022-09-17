@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, FormProvider } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { CityForm } from "../../pages";
 import { useTForm } from "../../shared/hooks";
@@ -21,7 +21,7 @@ export const DetailsCity: React.FC = () => {
   const navigate = useNavigate();
   const form = useForm<IFormCity>({
     resolver: yupResolver(cityFormValidationSchema),
-    mode: "onChange",
+    mode: "onBlur",
   });
 
   const [name, setName] = useState("");
@@ -33,6 +33,7 @@ export const DetailsCity: React.FC = () => {
   useEffect(() => {
     if (id !== "nova") {
       setIsLoading(true);
+
       setTimeout(() => {
         cityGetById(Number(id)).then((result) => {
           setIsLoading(false);
@@ -47,9 +48,7 @@ export const DetailsCity: React.FC = () => {
         });
       }, 500);
     } else {
-      form.reset({
-        nome: "",
-      });
+      form.reset();
     }
   }, [id]);
 
@@ -74,6 +73,7 @@ export const DetailsCity: React.FC = () => {
           alert(result.message);
         } else {
           setIsLoading(false);
+
           if (isSaveAndClose()) {
             navigate("/cidades");
           } else {
