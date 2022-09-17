@@ -45,7 +45,7 @@ export const DetailsCity: React.FC = () => {
             form.reset(result);
           }
         });
-      }, 300);
+      }, 500);
     } else {
       form.reset({
         nome: "",
@@ -54,12 +54,8 @@ export const DetailsCity: React.FC = () => {
   }, [id]);
 
   const onSubmit = (data: IFormCity) => {
-    setIsLoading(true);
-
     if (id === "nova") {
       cityCreate(data).then((result) => {
-        setIsLoading(false);
-
         if (result instanceof Error) {
           alert(result.message);
         } else {
@@ -71,14 +67,16 @@ export const DetailsCity: React.FC = () => {
         }
       });
     } else {
-      cityUpdateById(Number(id), { id: Number(id), ...data }).then((result) => {
-        setIsLoading(false);
+      setIsLoading(true);
 
+      cityUpdateById(Number(id), { id: Number(id), ...data }).then((result) => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
+          setIsLoading(false);
           if (isSaveAndClose()) {
             navigate("/cidades");
+          } else {
             setName(data.nome);
           }
         }

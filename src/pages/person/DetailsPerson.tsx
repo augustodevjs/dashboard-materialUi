@@ -20,7 +20,7 @@ export const DetailsPerson: React.FC = () => {
   const navigate = useNavigate();
   const form = useForm<IFormPerson>({
     resolver: yupResolver(personFormValidationSchema),
-    mode: "onChange",
+    mode: "onBlur",
   });
 
   const [name, setName] = useState("");
@@ -55,12 +55,8 @@ export const DetailsPerson: React.FC = () => {
   }, [id]);
 
   const onSubmit = (data: IFormPerson) => {
-    setIsLoading(true);
-
     if (id === "nova") {
       personCreate(data).then((result) => {
-        setIsLoading(false);
-
         if (result instanceof Error) {
           alert(result.message);
         } else {
@@ -72,15 +68,18 @@ export const DetailsPerson: React.FC = () => {
         }
       });
     } else {
+      setIsLoading(true);
+
       personUpdateById(Number(id), { id: Number(id), ...data }).then(
         (result) => {
-          setIsLoading(false);
-
           if (result instanceof Error) {
             alert(result.message);
           } else {
+            setIsLoading(false);
+
             if (isSaveAndClose()) {
               navigate("/pessoas");
+            } else {
               setName(data.nomeCompleto);
             }
           }

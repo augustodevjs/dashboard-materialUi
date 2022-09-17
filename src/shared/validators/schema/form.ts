@@ -6,12 +6,15 @@ export const personFormValidationSchema: yup.SchemaOf<IFormPerson> = yup.object(
     nomeCompleto: yup.string().required("O campo é obrigatório"),
     email: yup
       .string()
-      .required("O campo é obrigatório")
-      .email("E-mail inválido."),
-    cidadeId: yup.string().required("O campo é obrigatório").min(3),
+      .email("O e-mail é inválido")
+      .required("O campo é obrigatório"),
+    cidadeId: yup.string().required("O campo é obrigatório"),
   }
 );
 
 export const cityFormValidationSchema: yup.SchemaOf<IFormCity> = yup.object({
-  nome: yup.string().required("O campo é obrigatório").min(3),
+  nome: yup
+    .string()
+    .required("O campo é obrigatório")
+    .min(3, "O campo deve conter no mínimo 3 caracteres"),
 });

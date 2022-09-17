@@ -35,6 +35,8 @@ export const ListingPerson: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  console.log(rows);
+
   const search = useMemo(() => {
     return searchParams.get("search") || "";
   }, [searchParams]);
@@ -44,19 +46,18 @@ export const ListingPerson: React.FC = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    setTimeout(() => {
-      debounce(() => {
-        personGetAll(page, search).then((result) => {
-          setIsLoading(false);
-          if (result instanceof Error) {
-            alert(result.message);
-            return;
-          }
+    debounce(() => {
+      personGetAll(page, search).then((result) => {
+        setIsLoading(false);
+        if (result instanceof Error) {
+          alert(result.message);
+          return;
+        } else {
           setRows(result.data);
           setTotalCount(result.totalCount);
-        });
+        }
       });
-    }, 300);
+    });
   }, [search, page]);
 
   const handleDelete = (id: number) => {

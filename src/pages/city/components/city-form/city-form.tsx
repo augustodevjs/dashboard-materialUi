@@ -2,7 +2,7 @@ import { Box, Paper, Grid, Typography, LinearProgress } from "@mui/material";
 
 import { IFormCity } from "../../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
-import { TextFieldInput } from "../../../../shared/components";
+import TextField from "@mui/material/TextField";
 
 type Props = {
   onSubmit: SubmitHandler<IFormCity>;
@@ -43,11 +43,13 @@ export const CityForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextFieldInput
+                  <TextField
                     {...field}
                     fullWidth
                     label="Nome"
                     disabled={isLoading}
+                    error={Boolean(errors.nome)}
+                    helperText={errors.nome && errors.nome.message}
                   />
                 )}
               />

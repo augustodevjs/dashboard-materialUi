@@ -2,8 +2,8 @@ import { Box, Paper, Grid, Typography, LinearProgress } from "@mui/material";
 
 import { IFormPerson } from "../../../../shared/types";
 import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
-import { TextFieldInput } from "../../../../shared/components";
 import { AutoCompleteCity } from "../AutoCompleteCity/AutoCompleteCity";
+import TextField from "@mui/material/TextField";
 
 type Props = {
   onSubmit: SubmitHandler<IFormPerson>;
@@ -44,7 +44,7 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextFieldInput
+                  <TextField
                     {...field}
                     fullWidth
                     label="Nome completo"
@@ -66,7 +66,7 @@ export const PersonForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextFieldInput
+                  <TextField
                     {...field}
                     fullWidth
                     label="Email"
