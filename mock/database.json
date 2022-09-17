@@ -149,6 +149,13 @@
     {
       "id": 19,
       "nome": "Maracanau - Ceara"
+    },
+    {
+      "nome": "asdasd",
+      "id": 20
     }
-  ]
+  ],
+  "auth": {
+    "acessToken": "kajsdoasjdkasmdkjaiosjdio"
+  }
 }
