@@ -12,14 +12,12 @@ export const ThemeContext = createContext<IThemeContextProps>(
 export const AppThemeProvider = ({ children }: IThemeProviderProps) => {
   const [themeName, setThemeName] = useState<"light" | "dark">("light");
 
-  // Troca o tema de light para dark
   const toggleTheme = useCallback(() => {
     setThemeName((oldThemeName) =>
       oldThemeName === "light" ? "dark" : "light"
     );
   }, []);
 
-  // Se o retorno for light ou dark ele vai adicionar as configurações de them.
   const theme = useMemo(() => {
     if (themeName === "light") return LightTheme;
 

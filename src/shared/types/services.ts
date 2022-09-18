@@ -31,3 +31,7 @@ export type TCidadesTotalCount = {
   data: IListagemCidades[];
   totalCount: number;
 };
+
+export interface IAuth {
+  accessToken: string;
+}

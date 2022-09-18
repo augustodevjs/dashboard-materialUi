@@ -25,3 +25,13 @@ export interface IThemeContextProps {
 export interface IThemeProviderProps {
   children: ReactNode;
 }
+
+export interface IAuthContext {
+  logout: () => void;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<string | void>;
+}
+
+export interface IAuthProvider {
+  children: ReactNode;
+}

@@ -1,10 +1,7 @@
 import { api } from "../../api/axios-config";
+import { IAuth } from "../../types";
 
-interface IAuth {
-  accessToken: string;
-}
-
-export const auth = async (
+export const AuthService = async (
   email: string,
   password: string
 ): Promise<IAuth | Error> => {

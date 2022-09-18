@@ -15,7 +15,11 @@ import {
 } from "@mui/material";
 
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
-import { useAppThemeContext, useDrawerContext } from "../../hooks";
+import {
+  useAppThemeContext,
+  useAuthContext,
+  useDrawerContext,
+} from "../../hooks";
 import { IDrawerMenuProps, IListItemLinkProps } from "../../types";
 
 const ListItemLink: React.FC<IListItemLinkProps> = ({
@@ -50,6 +54,7 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
   const { toggleTheme } = useAppThemeContext();
+  const { logout } = useAuthContext();
 
   return (
     <>
@@ -100,6 +105,13 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
                   <Icon>dark_mode</Icon>
                 </ListItemIcon>
                 <ListItemText primary="Alternar tema" />
+              </ListItemButton>
+
+              <ListItemButton onClick={logout}>
+                <ListItemIcon>
+                  <Icon>logout</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Sair" />
               </ListItemButton>
             </List>
           </Box>
