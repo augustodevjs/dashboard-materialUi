@@ -10,14 +10,16 @@ import { AuthService } from "../services";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
+const LOCAL_STORAGE_KEY__ACCESS_TOKEN = "APP_ACCESS_TOKEN";
+
 export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string>();
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("APP_ACCESS_TOKEN");
+    const accessToken = localStorage.getItem(LOCAL_STORAGE_KEY__ACCESS_TOKEN);
 
     if (accessToken) {
-      setAccessToken(JSON.stringify(accessToken));
+      setAccessToken(JSON.parse(accessToken));
     } else {
       setAccessToken(undefined);
     }
@@ -29,13 +31,16 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
     if (result instanceof Error) {
       return result.message;
     } else {
-      localStorage.set("APP_ACCESS_TOKEN", JSON.stringify(result.accessToken));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY__ACCESS_TOKEN,
+        JSON.stringify(result.accessToken)
+      );
       setAccessToken(result.accessToken);
     }
   }, []);
 
   const handleLogout = useCallback(() => {
-    localStorage.removeItem("APP_ACCESS_TOKEN");
+    localStorage.removeItem(LOCAL_STORAGE_KEY__ACCESS_TOKEN);
     setAccessToken(undefined);
   }, []);
 
