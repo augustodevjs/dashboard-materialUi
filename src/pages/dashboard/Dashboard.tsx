@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import { Box, Card, CardContent, Grid } from "@mui/material";
-import { DetailsTools } from "../../shared/components";
+
 import { LayoutBase } from "../../shared/layouts";
 import Typography from "@mui/material/Typography";
+import { DetailsTools } from "../../shared/components";
 import { cityGetAll, personGetAll } from "../../shared/services";
 
 export const Dashboard: React.FC = () => {

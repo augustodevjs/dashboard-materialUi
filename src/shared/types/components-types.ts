@@ -40,3 +40,12 @@ export interface IDetailsToolsProps {
   onClickSaveAndClose?: () => void;
   onClickSave?: () => void;
 }
+
+export interface IloginProps {
+  children: ReactNode;
+}
+
+export interface IFormLogin {
+  email: string;
+  password: string;
+}

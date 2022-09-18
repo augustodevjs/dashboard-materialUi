@@ -18,3 +18,14 @@ export const cityFormValidationSchema: yup.SchemaOf<IFormCity> = yup.object({
     .required("O campo é obrigatório")
     .min(3, "O campo deve conter no mínimo 3 caracteres"),
 });
+
+export const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("E-mail inválido")
+    .required("O campo é obrigatório"),
+  password: yup
+    .string()
+    .required("O campo é obrigatório")
+    .min(5, "Deve conter no mínimo 5 caracteres."),
+});

@@ -7,39 +7,16 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
-import { ReactNode, useState } from "react";
-import { useAuthContext } from "../../hooks";
 
-import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-import * as yup from "yup";
-import { SubmitHandler } from "react-hook-form/dist/types";
-import CircularProgress from "@mui/material/CircularProgress";
-
-interface IloginProps {
-  children: ReactNode;
-}
-
-interface IFormLogin {
-  email: string;
-  password: string;
-}
-
-const loginSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("E-mail inválido")
-    .required("O campo é obrigatório"),
-  password: yup
-    .string()
-    .required("O campo é obrigatório")
-    .min(5, "Deve conter no mínimo 5 caracteres."),
-});
+import { useAuthContext } from "../../hooks";
+import { loginSchema } from "../../validators";
+import { IFormLogin, IloginProps } from "../../types";
 
 export const Login: React.FC<IloginProps> = ({ children }) => {
   const { isAuthenticated, login } = useAuthContext();
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     control,
@@ -51,9 +28,7 @@ export const Login: React.FC<IloginProps> = ({ children }) => {
   });
 
   const onSubmit: SubmitHandler<IFormLogin> = (data) => {
-    setIsLoading(true);
     login(data.email, data.password);
-    setIsLoading(false);
   };
 
   if (isAuthenticated) {
@@ -84,7 +59,6 @@ export const Login: React.FC<IloginProps> = ({ children }) => {
                     fullWidth
                     label="Email"
                     type="email"
-                    disabled={isLoading}
                     error={Boolean(errors.email)}
                     helperText={errors.email && errors.email.message}
                     {...field}
@@ -100,7 +74,6 @@ export const Login: React.FC<IloginProps> = ({ children }) => {
                     fullWidth
                     label="Senha"
                     type="password"
-                    disabled={isLoading}
                     error={Boolean(errors.password)}
                     helperText={errors.password && errors.password.message}
                     {...field}
@@ -111,19 +84,7 @@ export const Login: React.FC<IloginProps> = ({ children }) => {
           </CardContent>
           <CardActions>
             <Box width="100%" display="flex" justifyContent="center">
-              <Button
-                type="submit"
-                variant="contained"
-                endIcon={
-                  isLoading ? (
-                    <CircularProgress
-                      variant="indeterminate"
-                      size={20}
-                      color="inherit"
-                    />
-                  ) : undefined
-                }
-              >
+              <Button type="submit" variant="contained">
                 Entrar
               </Button>
             </Box>

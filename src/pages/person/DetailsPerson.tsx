@@ -18,6 +18,7 @@ import {
 
 export const DetailsPerson: React.FC = () => {
   const navigate = useNavigate();
+
   const form = useForm<IFormPerson>({
     resolver: yupResolver(personFormValidationSchema),
     mode: "onBlur",
@@ -65,8 +66,6 @@ export const DetailsPerson: React.FC = () => {
       });
     } else {
       setIsLoading(true);
-
-      console.log(data);
 
       personUpdateById(Number(id), { id: Number(id), ...data }).then(
         (result) => {

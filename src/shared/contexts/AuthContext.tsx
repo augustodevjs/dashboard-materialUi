@@ -1,4 +1,3 @@
-import { IAuthContext, IAuthProvider } from "../types";
 import {
   createContext,
   useCallback,
@@ -6,7 +5,9 @@ import {
   useMemo,
   useState,
 } from "react";
+
 import { AuthService } from "../services";
+import { IAuthContext, IAuthProvider } from "../types";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 

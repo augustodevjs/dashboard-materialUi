@@ -1,5 +1,7 @@
-import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
+
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+
 import { useDebounce } from "../../../../shared/hooks";
 import { cityGetAll } from "../../../../shared/services";
 
@@ -29,7 +31,7 @@ export const AutoCompleteCity: React.FC<IAutoCompleteCityProps> = ({
       cityGetAll(1, search).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
-          // alert(result.message);
+          alert(result.message);
           return;
         } else {
           setOptions(

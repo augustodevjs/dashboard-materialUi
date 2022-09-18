@@ -1,8 +1,15 @@
-import { Box, Paper, Grid, Typography, LinearProgress } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Grid,
+  Typography,
+  LinearProgress,
+  TextField,
+} from "@mui/material";
+
+import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
 
 import { IFormCity } from "../../../../shared/types";
-import { Controller, SubmitHandler, useFormContext } from "react-hook-form";
-import TextField from "@mui/material/TextField";
 
 type Props = {
   onSubmit: SubmitHandler<IFormCity>;
